@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automatic Cursor Movement</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  #cursor {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    pointer-events: none; /* Make sure cursor doesn't interfere with pointer events */
+    transition: transform 0.1s ease; /* Add transition for smooth movement */
+  }
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+
+<script>
+  const cursor = document.getElementById('cursor');
+
+  // Function to move the cursor to the specified coordinates
+  function moveCursor(x, y) {
+    cursor.style.transform = `translate(${x}px, ${y}px)`;
+  }
+
+  // Function to continuously update the cursor position
+  function animateCursor() {
+    // Example: Move cursor in a circle
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const radius = 100;
+    const angle = Date.now() / 1000; // Adjust speed of movement
+
+    const x = centerX + Math.cos(angle) * radius;
+    const y = centerY + Math.sin(angle) * radius;
+
+    moveCursor(x, y);
+
+    // Request next frame
+    requestAnimationFrame(animateCursor);
+  }
+
+  // Start the animation loop
+  animateCursor();
+</script>
+</body>
+</html>
